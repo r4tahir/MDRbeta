@@ -26,7 +26,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             SvgPicture.asset(
-              "assets/icons/login.svg",
+              "assets/icons/login2.svg",
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),
@@ -38,7 +38,7 @@ class Body extends StatelessWidget {
               onChanged: (value) {},
             ),
             RoundedButton(
-              text: "LOGIN",
+              text: "SIGN IN WITH GOOGLE",
               press: () {},
             ),
             SizedBox(height: size.height * 0.03),
@@ -54,9 +54,54 @@ class Body extends StatelessWidget {
                 );
               },
             ),
+            _signInButton(),
           ],
         ),
       ),
     );
   }
+
+  Widget _signInButton() {
+    return OutlineButton(
+      splashColor: Colors.grey,
+      onPressed: () {
+        signInWithGoogle().then((result) {
+          if (result != null) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return FirstScreen();
+                },
+              ),
+            );
+          }
+        });
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      highlightElevation: 0,
+      borderSide: BorderSide(color: Colors.grey),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                'Sign in with Google',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+
 }
